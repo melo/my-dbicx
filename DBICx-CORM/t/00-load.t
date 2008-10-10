@@ -1,9 +1,8 @@
 #!perl -T
 
-use Test::More tests => 1;
+use strict;
+use warnings;
+use Test::More 'no_plan';
+use lib 't/tlib';
 
-BEGIN {
-	use_ok( 'DBICx::CORM' );
-}
-
-diag( "Testing DBICx::CORM $DBICx::CORM::VERSION, Perl $], $^X" );
+use_ok('CORMTests::S');
