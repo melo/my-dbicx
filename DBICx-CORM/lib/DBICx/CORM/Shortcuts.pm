@@ -79,7 +79,7 @@ use Carp qw( croak );
 
       next SOURCE if $s_info->{skip_shortcut};
       
-      my $method = $info->{shortcut};
+      my $method = $s_info->{shortcut};
       next SOURCE if !$method && $info->{no_auto_shortcut};
       
       if (!$method) {
