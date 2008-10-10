@@ -2,14 +2,23 @@
 
 use strict;
 use warnings;
-use Test::More 'no_plan';
 use lib 't/tlib';
+use Test::More 'no_plan';
+use Test::Exception;
 
 use_ok('CORMTests::S');
 
 my $schema = CORMTests::S->schema;
 isa_ok($schema, 'CORMTests::S::Schema');
-is(scalar($schema->sources), 0);
+is(scalar($schema->sources), 1);
+lives_ok sub { $schema->deploy };
+
+can_ok('CORMTests::S', 'users');
+my $users_rs = CORMTests::S->users;
+isa_ok($users_rs, 'DBIx::Class::ResultSet');
+
+ok(!defined(CORMTests::S->users(1)));
+is(CORMTests::S->users({ id => 2 })->count, 0);
 
 my $cfg = CORMTests::S->cfg;
 ok($cfg->{no_auto_shortcut});
