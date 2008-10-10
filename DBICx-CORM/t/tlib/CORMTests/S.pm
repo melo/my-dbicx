@@ -14,12 +14,12 @@ __PACKAGE__->setup({
   
   modes => {
     default => {
-      dsn  => 'dbi:sqlite:dbname='.File::Temp->new(UNLINK => 1, TMPDIR => 1),
+      dsn  => 'dbi:SQLite:dbname='.File::Temp->new(UNLINK => 1, TMPDIR => 1),
       encoding => 'utf8',
     },
     
     production => {
-      dsn  => 'dbi:sqlite:dbname='.File::Temp->new(UNLINK => 1, TMPDIR => 1),
+      dsn  => 'dbi:SQLite:dbname='.File::Temp->new(UNLINK => 1, TMPDIR => 1),
       encoding => 'utf8',
     },
   },
