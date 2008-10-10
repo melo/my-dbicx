@@ -56,7 +56,8 @@ use Carp qw( croak );
           push @conn, { on_connect_do => [q{SET NAMES 'utf8'}] };
         }
       }
-      $schema = $schemas{$s_class} = $s_class->connection(@conn);
+
+      $schema = $schemas{$s_class} = $s_class->connect(@conn);
     }
   
     return $schema;
