@@ -24,12 +24,18 @@ use Carp qw( croak );
     return;
   }
   
-  sub schema {
+  sub cfg {
     my ($class) = @_;
     
     croak("Shortcut class '$class' didn't call setup()")
       unless exists $cfgs{$class};
-    my $info    = $cfgs{$class};
+    return $cfgs{$class};
+  }
+  
+  sub schema {
+    my ($class) = @_;
+    
+    my $info    = $class->cfg;
     my $s_class = $info->{schema_class};
 
     my $db_mode = $info->{active_db_mode};
