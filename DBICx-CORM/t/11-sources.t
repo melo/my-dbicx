@@ -9,7 +9,7 @@ use Test::Exception;
 use_ok('CORMTests::S');
 
 my $schema = CORMTests::S->schema;
-lives_ok sub { $schema->deploy };
+lives_ok sub { $schema->deploy }, 'Deploy success';
 
 my $user = CORMTests::S->users->create({
   name => 'Pedro Melo',

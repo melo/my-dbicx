@@ -11,7 +11,7 @@ use_ok('CORMTests::S');
 my $schema = CORMTests::S->schema;
 isa_ok($schema, 'CORMTests::S::Schema');
 is(scalar($schema->sources), 1);
-lives_ok sub { $schema->deploy };
+lives_ok sub { $schema->deploy }, 'Deploy success';
 
 can_ok('CORMTests::S', 'users');
 my $users_rs = CORMTests::S->users;
