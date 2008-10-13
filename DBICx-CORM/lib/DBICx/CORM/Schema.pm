@@ -10,6 +10,7 @@ use base qw/DBIx::Class::Schema/;
 # Hook system to run code after Schema setup
 
 __PACKAGE__->mk_classdata('corm_after_setup_do' => []);
+__PACKAGE__->mk_classdata('corm_after_setup_done');
 
 sub load_classes {
   my $class = shift;
@@ -32,8 +33,10 @@ sub load_namespaces {
 sub after_setup_do {
   my $class = shift;
   
+  croak("Called 'after_setup_do' after setup done, ")
+    if $class->corm_after_setup_done;
+
   my $cbs = $class->corm_after_setup_do;
-  croak("Called 'after_setup_do' after setup done, ") unless defined $cbs;
   push @$cbs, @_;
   
   return;
@@ -43,13 +46,11 @@ sub _run_after_setup_do_callbacks {
   my $class = shift;
   
   my $cbs = $class->corm_after_setup_do;
-  return unless defined $cbs;
-  
   foreach my $cb (@$cbs) {
     $cb->();
   }
 
-  $class->corm_after_setup_do(undef);
+  $class->corm_after_setup_done(1);
   
   return;
 }
