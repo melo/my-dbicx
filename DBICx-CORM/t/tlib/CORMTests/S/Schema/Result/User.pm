@@ -36,4 +36,9 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key(qw( id ));
 
+CORMTests::S::Schema->after_setup_do(sub {
+  my $si = __PACKAGE__->source_info;
+  $si->{after_setup_did_run} = 1;
+});
+
 1;

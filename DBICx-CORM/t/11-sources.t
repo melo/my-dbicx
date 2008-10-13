@@ -16,6 +16,9 @@ my $user = CORMTests::S->users->create({
 });
 isa_ok($user, 'CORMTests::S::Schema::Result::User');
 
+my $si = $user->result_source->source_info;
+ok($si->{after_setup_did_run}, 'After setup hooks are working');
+
 is($user->my_schema, $schema);
 is($user->my_source_name, 'User');
 

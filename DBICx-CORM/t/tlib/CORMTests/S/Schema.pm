@@ -2,7 +2,7 @@ package CORMTests::S::Schema;
 
 use strict;
 use warnings;
-use base qw( DBIx::Class::Schema );
+use base qw( DBICx::CORM::Schema );
 
 __PACKAGE__->load_namespaces;
 
