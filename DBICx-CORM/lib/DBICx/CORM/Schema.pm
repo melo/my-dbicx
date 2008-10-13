@@ -2,6 +2,7 @@ package DBICx::CORM::Schema;
 
 use warnings;
 use strict;
+use Carp qw( croak );
 use base qw/DBIx::Class::Schema/;
 
 
@@ -32,14 +33,8 @@ sub after_setup_do {
   my $class = shift;
   
   my $cbs = $class->corm_after_setup_do;
-  if (defined $cbs) {
-    push @$cbs, @_;
-  }
-  else {
-    foreach my $cb (@_) {
-      $cb->();
-    }
-  }
+  croak("Called 'after_setup_do' after setup done, ") unless defined $cbs;
+  push @$cbs, @_;
   
   return;
 }
