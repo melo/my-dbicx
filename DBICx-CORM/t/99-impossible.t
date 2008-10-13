@@ -12,3 +12,7 @@ my $schema = CORMTests::S->schema;
 throws_ok sub {
   $schema->after_setup_do(sub {});
 }, qr/Called 'after_setup_do' after setup done/;
+
+throws_ok sub {
+  $schema->load_classes();
+}, qr/load_classes[(][)] not supported under CORM, use load_namespaces[(][)]/;

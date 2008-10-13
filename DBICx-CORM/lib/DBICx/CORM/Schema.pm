@@ -13,12 +13,7 @@ __PACKAGE__->mk_classdata('corm_after_setup_do' => []);
 __PACKAGE__->mk_classdata('corm_after_setup_done');
 
 sub load_classes {
-  my $class = shift;
-  
-  $class->next::method(@_);
-  $class->_run_after_setup_do_callbacks;
-  
-  return;
+  croak("load_classes() not supported under CORM, use load_namespaces(), ");
 }
 
 sub load_namespaces {
