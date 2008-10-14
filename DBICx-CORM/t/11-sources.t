@@ -5,7 +5,7 @@ use warnings;
 use lib 't/tlib';
 use Test::More 'no_plan';
 use Test::Exception;
-
+use Test::Deep;
 use_ok('CORMTests::S');
 
 my $schema = CORMTests::S->schema;
@@ -63,3 +63,21 @@ $user->dbh_do(sub {
 });
 $user->discard_changes;
 is($user->name, 'Pedro Melo');
+
+$user->create_related('profile', {
+  city    => 'Porto',
+  country => 'Portugal',
+  gender  => 'male',
+});
+
+my $profile = $user->profile;
+is($profile->city,    'Porto');
+is($profile->country, 'Portugal');
+is($profile->gender,  'male');
+
+my $u8c = $profile->utf8_columns;
+cmp_deeply($u8c, {
+  'country' => 1,
+  'city'    => 1,
+  'gender'  => 1
+});

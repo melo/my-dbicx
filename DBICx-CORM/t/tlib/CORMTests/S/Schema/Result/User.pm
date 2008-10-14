@@ -41,4 +41,10 @@ CORMTests::S::Schema->after_setup_do(sub {
   $si->{after_setup_did_run} = 1;
 });
 
+__PACKAGE__->might_have(
+  'profile' => 'CORMTests::S::Schema::Result::Profile',
+  { 'foreign.user_id' => 'self.id' },
+);
+
+
 1;
