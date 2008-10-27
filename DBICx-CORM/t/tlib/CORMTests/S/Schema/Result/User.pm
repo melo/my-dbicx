@@ -2,7 +2,7 @@ package CORMTests::S::Schema::Result::User;
 
 use strict;
 use warnings;
-use base qw( DBICx::CORM::Source );
+use base qw( CORMTests::S::Schema::Base::Source );
 
 __PACKAGE__->table('user');
 __PACKAGE__->source_info({
@@ -30,6 +30,20 @@ __PACKAGE__->add_columns(
     extra => {
       label => 'Name',
       comment => 'Name of registered user',
+    },
+  },
+  
+  state => {
+    data_type => 'ENUM',
+    is_nullable => 1,
+    extra => {
+      label => 'State',
+      comment => 'state of the user',
+      valid_values => [
+        { value => 'active',    label => 'Active'    },
+        { value => 'suspended', label => 'Suspended' },
+        { value => 'canceled',  label => 'Canceled'  },
+      ],
     },
   },
 );
