@@ -34,7 +34,7 @@ sub add_columns {
       croak("Invalid value for extra.valid_values in field '$name', ");
     }
     
-    $info->{extra}{valid_values_list} = \@values;
+    $info->{extra}{list} = \@values; # For SQL::Translator
     
     {
       no strict 'refs';

@@ -27,3 +27,5 @@ cmp_deeply($vv, {
   canceled  => 'Canceled',
 });
 
+my $info = $user->result_source->column_info('state');
+cmp_deeply($info->{extra}{list}, [ 'active', 'suspended', 'canceled' ]);
