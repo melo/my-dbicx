@@ -14,8 +14,7 @@ sub add_columns {
   $class->next::method(@_);
   
   my @utf8_cols;
-  eval {
-    
+
   foreach my $col ($class->columns) {
     my $info = $class->column_info($col);
     my $dt = exists $info->{data_type}? lc($info->{data_type}) : '';
@@ -27,11 +26,6 @@ sub add_columns {
     elsif (exists $info->{extra}{is_utf8} && $info->{extra}{is_utf8}) {
       push @utf8_cols, $col
     }
-  }
-  };
-  if (my $e = $@) {
-    print ">> $e";
-    die($e);
   }
   
   $class->utf8_columns(@utf8_cols) if @utf8_cols;
