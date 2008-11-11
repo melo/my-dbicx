@@ -20,7 +20,7 @@ sub add_columns {
     my $dt = exists $info->{data_type}? lc($info->{data_type}) : '';
     
     # Convert CHAR, VARCHAR, and ENUM
-    if ($dt eq 'char' || $dt eq 'varchar' || $dt eq 'enum') {
+    if ($dt eq 'char' || $dt eq 'varchar' || $dt eq 'enum' || $dt eq 'text') {
       push @utf8_cols, $col
     }
     elsif (exists $info->{extra}{is_utf8} && $info->{extra}{is_utf8}) {
