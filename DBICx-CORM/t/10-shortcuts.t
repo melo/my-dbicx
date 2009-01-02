@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 use lib 't/tlib';
-use Test::More 'no_plan';
+use Test::More tests => 20;
 use Test::Exception;
 
 use_ok('CORMTests::S');
@@ -28,3 +28,15 @@ is(scalar(keys %{$cfg->{modes}}), 2);
 is($cfg->{active_db_mode}, 'default');
 is($cfg->{env_var_name}, 'CORMTESTS_S_DB_MODE');
 
+use_ok('CORMTests::S2');
+
+$cfg = CORMTests::S2->cfg;
+is($cfg->{active_db_mode}, 'production');
+ok(!defined($cfg->{env_var_name}));
+
+$ENV{MY_DEMO_MODE} = 'demo';
+use_ok('CORMTests::S3');
+
+$cfg = CORMTests::S3->cfg;
+is($cfg->{active_db_mode}, 'demo');
+is($cfg->{env_var_name}, 'MY_DEMO_MODE');

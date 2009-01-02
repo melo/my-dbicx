@@ -104,17 +104,23 @@ use Carp qw( croak );
   
   sub _setup_db_mode {
     my ($class, $info) = @_;
+    my ($db_mode, $env_var);
     
-    my $env_var = $info->{env_var_name};
-    if (!$env_var) {
+    if ($info->{env} && ref($info->{env}) eq 'CODE') {
+      $db_mode = $info->{env}->();
+    }
+    elsif ($info->{env_var_name}) {
+      $env_var = $info->{env_var_name};
+    }
+    else {
       $env_var = uc($class);
       $env_var =~ s/::/_/g;
       $env_var .= '_DB_MODE';
       $info->{env_var_name} = $env_var;
     }
     
-    my $db_mode = $ENV{$env_var};
-    $db_mode = 'default' unless $db_mode;
+    $db_mode = $ENV{$env_var} unless $db_mode;
+    $db_mode = 'default'      unless $db_mode;
     
     $info->{active_db_mode} = $db_mode;
     
